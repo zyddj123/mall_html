@@ -44,11 +44,12 @@
 <!-- Placed js at the end of the document so the pages load faster -->
 
 <!-- Placed js at the end of the document so the pages load faster -->
-<script src="/assets/js/jquery-3.3.1.js"></script>
+<script src="/assets/js/jquery-1.10.2.min.js"></script>
 <script src="/assets/js/jquery.form.js"></script> 
 <script src="/assets/js/bootstrap.min.js"></script>
 <script src="/assets/js/modernizr.min.js"></script>
-<script src="/assets/js/jquery.validate.min.js"></script>
+<script src="/assets/js/validate/jquery.validate.min.js"></script>
+<script src="/assets/js/layer/layer.js"></script>
 
 <script>
     $('#login_form').validate({
@@ -68,17 +69,36 @@
                 success:(e)=>{
                     if(e.sta===1){
                         //登录成功跳转
-                        // window.location.href = ''
+                        if(!window.localStorage){
+                            layer.msg('请使用IE8及以上版本!');
+                            return false;
+                        }else{
+                            var storage=window.localStorage;
+                            //写入token字段
+                            storage.token = e.data.token;
+                            //写入用户名
+                            storage.uname = e.data.info.uname;
+                            //写入用户头像
+                            storage.uimg = e.data.info.uimg;
+                        }
+                        window.location.href = '/index/index.html'
                     }else if(e.sta===2){
                         //用户不存在
+                        layer.msg('用户不存在！');
                     }else if(e.sta===3){
                         //密码错误
+                        layer.msg('密码错误');
                     }else if(e.sta===4){
                         //您已被冻结
+                        layer.msg('您已被冻结');
+                    }else if(e.sta===5){
+                        //登录异常
+                        layer.msg('登录异常');
                     }
                 },
                 error:(err)=>{
-                    console.log(err);
+                    // console.log(err);
+                    layer.msg('服务器出错！');
                 }
             });     
         }

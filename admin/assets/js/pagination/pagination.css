@@ -23,10 +23,16 @@
 	border-color:#999;
 	background:#fff;
 }*/
+.pagination {
+  	display: block;
+  	font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
 .pagination a {
-    text-decoration: none;
-	border: 1px solid #AAE;
-	color: #15B;
+  	display: inline-block;
+  	font-size: 20px;
+  	vertical-align: middle;
+	color: #999;
+	padding: 0 5px;
 }
 
 .pagination a, .pagination span {
@@ -36,15 +42,19 @@
 	margin-bottom: 5px;
 }
 
-.pagination .current {
-    background: #26B;
-    color: #fff;
-	border: 1px solid #AAE;
+.pagination a:hover{
+	color: #ff7f00;
 }
 
-.pagination .current.prev, .pagination .current.next, .pagination .current.first, .pagination .current.last{
+.pagination .current {
+    font-weight: 700;
+	font-size: 20px;
+}
+
+.pagination .current.prev, .pagination .current.next{
 	color:#999;
 	border-color:#999;
-	background:#fff;
+	font-weight: 100;
+	cursor: not-allowed;
 }
 

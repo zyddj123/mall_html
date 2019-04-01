@@ -1,20 +1,15 @@
 
 (function() {
     "use strict";
-
-    // custom scrollbar
-
+   
     $("html").niceScroll({styler:"fb",cursorcolor:"#65cea7", cursorwidth: '6', cursorborderradius: '0px', background: '#424f63', spacebarenabled:false, cursorborder: '0',  zindex: '1000'});
 
     $(".left-side").niceScroll({styler:"fb",cursorcolor:"#65cea7", cursorwidth: '3', cursorborderradius: '0px', background: '#424f63', spacebarenabled:false, cursorborder: '0'});
-
 
     $(".left-side").getNiceScroll();
     if ($('body').hasClass('left-side-collapsed')) {
         $(".left-side").getNiceScroll().hide();
     }
-
-
 
     // Toggle Left Menu
    jQuery('.menu-list > a').click(function() {
@@ -157,8 +152,6 @@
         $(this).parents(".panel").parent().remove();
     });
 
-
-
     // tool tips
 
     $('.tooltips').tooltip();
@@ -166,12 +159,5 @@
     // popovers
 
     $('.popovers').popover();
-
-
-
-
-
-
-
 
 })(jQuery);

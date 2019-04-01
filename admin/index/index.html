@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- meta -->
+    <!-- $(".headerpage").load("/common/meta.html");  -->
+    <title></title>
+    <!-- header -->
+    <meta name="csrf-token" content="">
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="/assets/css/custom.css" rel="stylesheet">
+    <link href="/assets/css/style-responsive.css" rel="stylesheet">
+    <!--HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <script src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script>
+        let token = $("meta[name=csrf-token]").attr('content');
+        if (token) {
+            $.ajaxSettings.headers = { 'TOKEN': token };
+        } else {
+            throw new Error('没有设置csrf-token');
+        }
+    </script>
+</head>
+
+<body class="sticky-header">
+    <section>
+        <div class="left-side sticky-left-side">
+            <!-- logo -->
+            <!-- <?php @include_once $this->getThemesPath().'/view/common/logo.php';?> -->
+            <div class="logo">
+                <a href="#">
+                    <!-- img src="" alt="TEST" --></a>
+                <!-- 展开LOGO -->
+            </div>
+
+            <div class="logo-icon text-center">
+                <a href="#">
+                    <!-- img src="" alt="" --></a>
+                <!-- 缩进LOGO -->
+            </div>
+            <div class="left-side-inner">
+                <!-- menu -->
+                <!-- <?php @include_once $this->getThemesPath().'/view/common/menu.php';?>    -->
+                <ul class="nav nav-pills nav-stacked custom-nav">
+                    <li id="index/index"><a href=""><i class="fa fa-home"></i><span>首页</span></a></li>
+
+                    <!-- 商品管理 -->
+                    <li class="menu-list"><a href=""><i class="fa fa-shopping-cart"></i><span>w</span></a>
+                        <ul class="sub-menu-list">
+                            <li id="goods/goods_add"><a href="">q</a>
+                            </li>
+                            <li id="goods/goods_index"><a href="">e</a>
+                            </li>
+                            <li id="category/category"><a href="">类别管理</a>
+                            </li>
+                            <li id="brand/brand"><a href="">品牌管理</a></li>
+                            <li id="attr/attr"><a href="">规格管理</a></li>
+                            <li id="unit/unit"><a href="">商品单位</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href=""><i class="fa fa-sign-in"></i>
+                            <span>a</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-content">
+
+            <!-- top -->
+            <!-- <?php @include_once $this->getThemesPath().'/view/common/top.php';?> -->
+            <div class="header-section">
+                <a class="toggle-btn"><i class="fa fa-bars"></i></a>
+
+                <form class="searchform" action="#" method="post">
+                    <input type="text" class="form-control" name="keyword" placeholder="搜索..." />
+                </form>
+
+                <div class="menu-right">
+                    <ul class="notification-menu">
+                        <li>
+                            <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                zhangsan
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                                <li><a href=""><i class="fa fa-user"></i> 个人资料</a></li>
+                                <li><a href=""><i class="fa fa-sign-out"></i> 退出</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="page-heading">
+                <!-- <h3><?php echo $this->language['index_title'];?></h3> -->
+                <h3>adf</h3>
+            </div>
+
+            <!-- content -->
+            <div class="wrapper">
+                <div class="row">
+
+
+                </div>
+
+            </div>
+        </div>
+        <!-- footer -->
+        <!-- <?php @include_once $this->getThemesPath().'/view/common/footer.php';?> -->
+
+        <footer class="sticky-footer">
+            2019 &copy;
+        </footer>
+        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="common-select"
+            class="modal fade">
+            <div class="modal-dialog" style="width:80%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h4 class="modal-title">&nbsp;</h4>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <button type="button" class="btn btn-success" data-dismiss="modal"><i
+                                        class="fa fa-check"></i>
+                                    qqq</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal"><i
+                                        class="fa fa-times"></i>
+                                    www</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!-- <?php @include_once $this->getThemesPath().'/view/common/commonjs.php';?> -->
+
+    <script src="/assets/js/jquery-ui.js"></script>
+    <script src="/assets/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/modernizr.min.js"></script>
+    <script src="/assets/js/jquery.nicescroll.js"></script>
+    <script src="/assets/js/scripts.js"></script>
+    <script>
+        $(function () {
+            //计算当前左侧导航栏位置
+            var _menu_action = "123";
+            if (!_menu_action) return;
+            $(".sub-menu-list li").each(function (i, e) {
+                if (e.id == _menu_action) {
+                    $(e).addClass("active");
+                    $(e).parents(".menu-list").addClass("nav-active");
+                    return false;
+                }
+            });
+            //如果二级菜单都没权限看，上级菜单也需要隐藏
+            $(".menu-list").each(function () {
+                if ($(this).find(".sub-menu-list li").length == 0) $(this).hide();
+            });
+        });
+    </script>
+    <script>
+        $('#login_form').validate({
+            rules: {
+                uname: "required",
+                upwd: "required"
+            },
+            messages: {
+                uname: "用户名不能为空",
+                upwd: "密码不能为空"
+            },
+            submitHandler: (form) => {
+                $(form).ajaxSubmit({
+                    url: "http://api.tp_mall.com/admin/Index/index",
+                    type: 'get',
+                    dataType: 'jsonp',
+                    success: (e) => {
+                        if (e.sta === 1) {
+                            //登录成功跳转
+                            if (!window.localStorage) {
+                                layer.msg('请使用IE8及以上版本!');
+                                return false;
+                            } else {
+                                var storage = window.localStorage;
+                                //写入token字段
+                                storage.token = e.data.token;
+                                //写入用户名
+                                storage.uname = e.data.info.uname;
+                                //写入用户头像
+                                storage.uimg = e.data.info.uimg;
+                            }
+                            window.location.href = '/index/index.html'
+                        } else if (e.sta === 2) {
+                            //用户不存在
+                            layer.msg('用户不存在！');
+                        } else if (e.sta === 3) {
+                            //密码错误
+                            layer.msg('密码错误');
+                        } else if (e.sta === 4) {
+                            //您已被冻结
+                            layer.msg('您已被冻结');
+                        } else if (e.sta === 5) {
+                            //登录异常
+                            layer.msg('登录异常');
+                        }
+                    },
+                    error: (err) => {
+                        // console.log(err);
+                        layer.msg('服务器出错！');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

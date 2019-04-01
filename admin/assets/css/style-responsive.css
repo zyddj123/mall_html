@@ -1,6 +1,6 @@
 /* MEDIA QUERIES */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
 
     body {
         position: relative;
@@ -52,7 +52,7 @@
         border: 0;
     }
 
-    .sticky-header .header-section {
+    .sticky-header .header-section, .sticky-header.left-side-collapsed .header-section {
         left: 0;
     }
 
@@ -79,6 +79,33 @@
         bottom: 50px;
     }
 
+    /*----------*/
+
+    .left-side-collapsed .left-side {
+        left: 0;
+        top: 50px;
+        width: 240px;
+    }
+
+    .sticky-header.left-side-collapsed .menu-right {
+        margin-right: 15px;
+    }
+
+    .left-side-collapsed .logo-icon {
+        display: none;
+    }
+    .left-side-collapsed .logo {
+        display: block;
+    }
+
+    .left-side-collapsed .left-side .searchform input {
+        margin: 5px 0 20px 12px;
+    }
+
+    /*----------*/
+    .wdgt-profile, ul.iconic-list {
+        margin-bottom: 20px;
+    }
 }
 
 

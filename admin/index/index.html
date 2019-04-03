@@ -16,12 +16,15 @@
     <script src="js/respond.min.js"></script>
     <![endif]-->
     <script src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="/assets/js/doCookie.js"></script>
     <script>
-        let token = $("meta[name=csrf-token]").attr('content');
+        let token = docCookies.getItem("token");
+        console.log(token);
         if (token) {
             $.ajaxSettings.headers = { 'TOKEN': token };
         } else {
-            throw new Error('没有设置csrf-token');
+            // throw new Error('没有设置csrf-token');
+            window.location.href = '/login/login.html';
         }
     </script>
 </head>
@@ -83,7 +86,7 @@
                     <ul class="notification-menu">
                         <li>
                             <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                zhangsan
+                                <span id="superName"></span>
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
@@ -93,6 +96,9 @@
                         </li>
                     </ul>
                 </div>
+                <script>
+                    $('#superName').text(docCookies.getItem("uname"));
+                </script>
             </div>
             <div class="page-heading">
                 <!-- <h3><?php echo $this->language['index_title'];?></h3> -->
@@ -167,55 +173,26 @@
         });
     </script>
     <script>
-        $('#login_form').validate({
-            rules: {
-                uname: "required",
-                upwd: "required"
+        var data = {token:token};
+        $.ajax({
+            url: "http://api.tp_mall.com/admin/Index/index",
+            type: 'get',
+            data: data,
+            dataType: 'jsonp',
+            success: (e) => {
+                if(e.sta==-1){
+                    //未登录
+                    window.location.href = '/login/login.html';
+                }else if(e.sta==-2){
+                    //写入redis中token过期时间失败
+                    window.location.href = '/login/login.html';
+                }else{
+                    console.log(e);
+                }
             },
-            messages: {
-                uname: "用户名不能为空",
-                upwd: "密码不能为空"
-            },
-            submitHandler: (form) => {
-                $(form).ajaxSubmit({
-                    url: "http://api.tp_mall.com/admin/Index/index",
-                    type: 'get',
-                    dataType: 'jsonp',
-                    success: (e) => {
-                        if (e.sta === 1) {
-                            //登录成功跳转
-                            if (!window.localStorage) {
-                                layer.msg('请使用IE8及以上版本!');
-                                return false;
-                            } else {
-                                var storage = window.localStorage;
-                                //写入token字段
-                                storage.token = e.data.token;
-                                //写入用户名
-                                storage.uname = e.data.info.uname;
-                                //写入用户头像
-                                storage.uimg = e.data.info.uimg;
-                            }
-                            window.location.href = '/index/index.html'
-                        } else if (e.sta === 2) {
-                            //用户不存在
-                            layer.msg('用户不存在！');
-                        } else if (e.sta === 3) {
-                            //密码错误
-                            layer.msg('密码错误');
-                        } else if (e.sta === 4) {
-                            //您已被冻结
-                            layer.msg('您已被冻结');
-                        } else if (e.sta === 5) {
-                            //登录异常
-                            layer.msg('登录异常');
-                        }
-                    },
-                    error: (err) => {
-                        // console.log(err);
-                        layer.msg('服务器出错！');
-                    }
-                });
+            error: (err) => {
+                console.log(err);
+                // layer.msg('服务器出错！');
             }
         });
     </script>

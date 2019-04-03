@@ -50,6 +50,7 @@
 <script src="/assets/js/modernizr.min.js"></script>
 <script src="/assets/js/validate/jquery.validate.min.js"></script>
 <script src="/assets/js/layer/layer.js"></script>
+<script src="/assets/js/doCookie.js"></script>
 
 <script>
     $('#login_form').validate({
@@ -66,22 +67,32 @@
                 url:"http://api.tp_mall.com/admin/Login/doLogin",
                 type: 'get',
                 dataType: 'jsonp',
+                xhrFields: {
+                    withCredentials: true // 这里设置了withCredentials
+                },
                 success:(e)=>{
                     if(e.sta===1){
                         //登录成功跳转
-                        if(!window.localStorage){
-                            layer.msg('请使用IE8及以上版本!');
-                            return false;
-                        }else{
-                            var storage=window.localStorage;
-                            //写入token字段
-                            storage.token = e.data.token;
-                            //写入用户名
-                            storage.uname = e.data.info.uname;
-                            //写入用户头像
-                            storage.uimg = e.data.info.uimg;
-                        }
-                        window.location.href = '/index/index.html'
+                        // if(!window.localStorage){
+                        //     layer.msg('请使用IE8及以上版本!');
+                        //     return false;
+                        // }else{
+                        //     var storage=window.localStorage;
+                        //     //写入token字段
+                        //     storage.token = e.data.token;
+                        //     //写入用户名
+                        //     storage.uname = e.data.info.uname;
+                        //     //写入用户头像
+                        //     storage.uimg = e.data.info.uimg;
+                        // }
+                        // storage.clear();
+                        // document.cookie = "token=" + e.data.token;
+                        // document.cookie = "uname=" + e.data.info.uname;
+                        // document.cookie = "uimg=" + e.data.info.uimg;
+                        docCookies.setItem("token",e.data.token,7200,'/');
+                        docCookies.setItem("uname",e.data.info.uname,7200,'/');
+                        docCookies.setItem("uimg",e.data.info.uimg,7200,'/');
+                        window.location.href = '/index/index.html';
                     }else if(e.sta===2){
                         //用户不存在
                         layer.msg('用户不存在！');

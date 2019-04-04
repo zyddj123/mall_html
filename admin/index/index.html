@@ -17,16 +17,7 @@
     <![endif]-->
     <script src="/assets/js/jquery-1.10.2.min.js"></script>
     <script src="/assets/js/doCookie.js"></script>
-    <script>
-        let token = docCookies.getItem("token");
-        console.log(token);
-        if (token) {
-            $.ajaxSettings.headers = { 'TOKEN': token };
-        } else {
-            // throw new Error('没有设置csrf-token');
-            window.location.href = '/login/login.html';
-        }
-    </script>
+    <script src="/assets/js/app.js"></script>
 </head>
 
 <body class="sticky-header">
@@ -173,27 +164,32 @@
         });
     </script>
     <script>
-        var data = {token:token};
+        // new myJsonp({
+        //     url: "http://api.tp_mall.com/admin/Index/index",
+        //     data: {"uname":"zhangsan","age":18},
+        //     success: (e)=>{
+        //         if(e.sta==-1){
+        //             //未登录
+        //             window.location.href = '/login/login.html';
+        //         }else if(e.sta==-2){
+        //             //写入redis中token过期时间失败
+        //             window.location.href = '/login/login.html';
+        //         }else{
+        //             console.log(e);
+        //         }
+        //     },
+        //     error: (err)=>console.log(err)
+        // });
+        $.ajaxSetup({
+            data: {"token":token}
+        });
         $.ajax({
             url: "http://api.tp_mall.com/admin/Index/index",
-            type: 'get',
-            data: data,
-            dataType: 'jsonp',
-            success: (e) => {
-                if(e.sta==-1){
-                    //未登录
-                    window.location.href = '/login/login.html';
-                }else if(e.sta==-2){
-                    //写入redis中token过期时间失败
-                    window.location.href = '/login/login.html';
-                }else{
-                    console.log(e);
-                }
-            },
-            error: (err) => {
-                console.log(err);
-                // layer.msg('服务器出错！');
-            }
+            data: {"uname":"qwer","age":244},
+            type: "GET",
+            dataType: "jsonp",
+            success: (e)=> console.log(e),
+            error: (err)=>console.log(err)
         });
     </script>
 </body>
